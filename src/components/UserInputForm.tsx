@@ -1,13 +1,32 @@
 import React from 'react'
+import { getPersonInfo, getPersonInfoWithGender } from '../Api'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { TextField } from './TextField'
 import { Select } from './Select'
 
-export const UserInputForm = ({ setUserInfo }: any) => {
+interface UserInputInterface {
+  firstName: string,
+  lastName: string,
+  age: number,
+  gender: string
+}
 
-  const onSubmit = (values: any) => {
+export const UserInputForm = ({ setUserInfo, setPersonInfo }: any) => {
+
+  const onSubmit = (values: UserInputInterface) => {
     setUserInfo(values)
+    if (values.gender === 'no-preference') {
+      getPersonInfo()
+        .then(personInfo => {
+          setPersonInfo(personInfo)
+        })
+    } else {
+      getPersonInfoWithGender(values.gender)
+        .then(personInfo => {
+          setPersonInfo(personInfo)
+        })
+    }
   }
 
   return (
@@ -31,7 +50,7 @@ export const UserInputForm = ({ setUserInfo }: any) => {
         gender: Yup.string()
           .required('Required')
       })}
-      onSubmit={values => onSubmit(values)}
+      onSubmit={onSubmit}
     >
       {formik => (
         <div>

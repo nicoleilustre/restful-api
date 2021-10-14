@@ -1,52 +1,27 @@
 import React from 'react'
-import { useLayoutEffect, useState } from 'react';
-import { getPersonInfo, getPersonInfoWithGender } from '../Api'
 
-interface PersonInfoInterface {
+interface PersonInfoInterface { personInfo: {
   name: {
     first: string,
     last: string
   },
   dob: { age: number },
   gender: string,
-  picture: { medium: string}
-}
-
-interface Props {
-  firstName: string,
-  gender: string
-}
+  picture: { medium: string }
+}}
 
 
-export const PersonInfo = (props: Props) => {
-
-  const [personInfo, setPersonInfo] = useState({} as PersonInfoInterface)
-
-  useLayoutEffect(() => {
-    if (props.gender === 'no-preference') {
-      getPersonInfo()
-        .then(personInfo => {
-          setPersonInfo(personInfo)
-        })
-    } else {
-      getPersonInfoWithGender(props.gender)
-        .then(personInfo => {
-          setPersonInfo(personInfo)
-        })
-
-    }
-  }, [props])
-
+export const PersonInfo = (props: PersonInfoInterface) => {
   return (
     <div>
-      {personInfo.picture?.medium &&
-      <img src={personInfo.picture.medium} alt={personInfo.name.first} />}
-      {personInfo.name &&
-        <div>Name: {personInfo.name.first} {personInfo.name.last}</div>}
-      {personInfo.dob?.age &&
-        <div>Age: {personInfo.dob.age}</div>}
-      {personInfo.gender &&
-        <div>Gender: {personInfo.gender}</div>}
+      {props.personInfo.picture &&
+        <img src={props.personInfo.picture.medium} alt={props.personInfo.name.first} />}
+      {props.personInfo.name &&
+        <div>Name: {props.personInfo.name.first} {props.personInfo.name.last}</div>}
+      {props.personInfo.dob.age &&
+        <div>Age: {props.personInfo.dob.age}</div>}
+      {props.personInfo.gender &&
+        <div>Gender: {props.personInfo.gender}</div>}
     </div>
   )
 }
