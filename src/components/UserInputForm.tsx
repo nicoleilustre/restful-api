@@ -4,12 +4,10 @@ import * as Yup from 'yup'
 import { TextField } from './TextField'
 import { PersonInfo } from './PersonInfo'
 
-export const UserInputForm = () => {
+export const UserInputForm = ({ userInfo, setUserInfo }: any) => {
 
-  const onSubmit = () => {
-    // console.log(values)
-
-    alert('SUBMITTED!')
+  const onSubmit = (values: any) => {
+    setUserInfo(values)
   }
 
   return (
@@ -33,7 +31,7 @@ export const UserInputForm = () => {
         gender: Yup.string()
           .required('Required')
       })}
-      onSubmit={onSubmit}
+      onSubmit={values => onSubmit(values)}
     >
       {formik => (
         <div>
@@ -43,10 +41,6 @@ export const UserInputForm = () => {
             <TextField name='age' label='Age' type='number' />
             <TextField name='gender' label='Gender' type='text' />
             <button type="submit">Show me a random person</button>
-            {formik.values.firstName && <PersonInfo firstName={formik.values.firstName}
-              lastName={formik.values.lastName}
-              age={formik.values.age}
-              gender={formik.values.gender} />}
           </Form>
         </div>
       )}
