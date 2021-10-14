@@ -2,9 +2,9 @@ import React from 'react'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { TextField } from './TextField'
-import { PersonInfo } from './PersonInfo'
+import { Select } from './Select'
 
-export const UserInputForm = ({ userInfo, setUserInfo }: any) => {
+export const UserInputForm = ({ setUserInfo }: any) => {
 
   const onSubmit = (values: any) => {
     setUserInfo(values)
@@ -26,7 +26,7 @@ export const UserInputForm = ({ userInfo, setUserInfo }: any) => {
           .max(20, 'Must be 20 characters or less')
           .required('Required'),
         age: Yup.number()
-          .min(1, 'Must be a valid age')
+          .min(1, 'Must be a valage')
           .required('Required'),
         gender: Yup.string()
           .required('Required')
@@ -36,11 +36,22 @@ export const UserInputForm = ({ userInfo, setUserInfo }: any) => {
       {formik => (
         <div>
           <Form>
-            <TextField name='firstName' label='First Name' type='text' />
-            <TextField name='lastName' label='Last Name' type='text' />
-            <TextField name='age' label='Age' type='number' />
-            <TextField name='gender' label='Gender' type='text' />
-            <button type="submit">Show me a random person</button>
+            <TextField
+              name='firstName'
+              label='First Name'
+              type='text' />
+            <TextField
+              name='lastName'
+              label='Last Name'
+              type='text' />
+            <TextField
+              name='age'
+              label='Age'
+              type='number' />
+            <Select
+              name='gender'
+              value='values.gender' />
+            <button type="submit">Show me the love of my life</button>
           </Form>
         </div>
       )}
