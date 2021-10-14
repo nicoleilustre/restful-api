@@ -1,21 +1,27 @@
 import React from 'react'
 
-interface Props {
-  firstName: string;
-  lastName: string;
-  age: number;
-  gender: string
-}
+interface PersonInfoInterface { personInfo: {
+  name: {
+    first: string,
+    last: string
+  },
+  dob: { age: number },
+  gender: string,
+  picture: { medium: string }
+}}
 
-export const PersonInfo = (props: Props) => {
+
+export const PersonInfo = (props: PersonInfoInterface) => {
   return (
     <div>
-      {props.firstName &&
-        <div>Name: {props.firstName} {props.lastName}</div>}
-      {props.age &&
-        <div>Age: {props.age}</div>}
-      {props.gender &&
-        <div>Gender: {props.gender}</div>}
+      {props.personInfo.picture &&
+        <img src={props.personInfo.picture.medium} alt={props.personInfo.name.first} />}
+      {props.personInfo.name &&
+        <div>Name: {props.personInfo.name.first} {props.personInfo.name.last}</div>}
+      {props.personInfo.dob.age &&
+        <div>Age: {props.personInfo.dob.age}</div>}
+      {props.personInfo.gender &&
+        <div>Gender: {props.personInfo.gender}</div>}
     </div>
   )
 }

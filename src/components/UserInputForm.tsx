@@ -1,13 +1,32 @@
 import React from 'react'
+import { getPersonInfo, getPersonInfoWithGender } from '../Api'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { TextField } from './TextField'
-import { PersonInfo } from './PersonInfo'
+import { Select } from './Select'
 
-export const UserInputForm = ({ userInfo, setUserInfo }: any) => {
+interface UserInputInterface {
+  firstName: string,
+  lastName: string,
+  age: number,
+  gender: string
+}
 
-  const onSubmit = (values: any) => {
+export const UserInputForm = ({ setUserInfo, setPersonInfo }: any) => {
+
+  const onSubmit = (values: UserInputInterface) => {
     setUserInfo(values)
+    if (values.gender === 'no-preference') {
+      getPersonInfo()
+        .then(personInfo => {
+          setPersonInfo(personInfo)
+        })
+    } else {
+      getPersonInfoWithGender(values.gender)
+        .then(personInfo => {
+          setPersonInfo(personInfo)
+        })
+    }
   }
 
   return (
@@ -26,21 +45,32 @@ export const UserInputForm = ({ userInfo, setUserInfo }: any) => {
           .max(20, 'Must be 20 characters or less')
           .required('Required'),
         age: Yup.number()
-          .min(1, 'Must be a valid age')
+          .min(1, 'Must be a valage')
           .required('Required'),
         gender: Yup.string()
           .required('Required')
       })}
-      onSubmit={values => onSubmit(values)}
+      onSubmit={onSubmit}
     >
       {formik => (
         <div>
           <Form>
-            <TextField name='firstName' label='First Name' type='text' />
-            <TextField name='lastName' label='Last Name' type='text' />
-            <TextField name='age' label='Age' type='number' />
-            <TextField name='gender' label='Gender' type='text' />
-            <button type="submit">Show me a random person</button>
+            <TextField
+              name='firstName'
+              label='First Name'
+              type='text' />
+            <TextField
+              name='lastName'
+              label='Last Name'
+              type='text' />
+            <TextField
+              name='age'
+              label='Age'
+              type='number' />
+            <Select
+              name='gender'
+              value='values.gender' />
+            <button type="submit">Show me the love of my life</button>
           </Form>
         </div>
       )}
