@@ -45,7 +45,7 @@ export const UserInputForm = ({ setUserInfo, setPersonInfo }: any) => {
           .max(20, 'Must be 20 characters or less')
           .required('Required'),
         age: Yup.number()
-          .min(1, 'Must be a valage')
+          .min(1, 'Must be a valid age')
           .required('Required'),
         gender: Yup.string()
           .required('Required')
@@ -68,6 +68,7 @@ export const UserInputForm = ({ setUserInfo, setPersonInfo }: any) => {
               label='Age'
               type='number' />
             <Select
+              label='Gender Preference'
               name='gender'
               value='values.gender' />
             <button type="submit">Show me the love of my life</button>
