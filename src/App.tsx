@@ -3,7 +3,6 @@ import './App.scss'
 import { Title } from './components/Title'
 import { Prompt } from './components/Prompt';
 import { Loading } from './components/Loading';
-import { UserInfo } from './components/UserInfo';
 import { PersonInfo } from './components/PersonInfo'
 import { UserInputForm } from './components/UserInputForm'
 
@@ -14,7 +13,7 @@ interface PersonInfoInterface {
   },
   dob: { age: number },
   gender: string,
-  picture: { medium: string }
+  picture: { large: string }
 }
 
 interface UserInfoInterface {
@@ -39,9 +38,6 @@ function App() {
         <div>
           <PersonInfo
             personInfo={personInfo}
-          />
-          <UserInfo
-            userInfo={userInfo}
           />
         </div>}
     </div>

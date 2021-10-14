@@ -7,9 +7,8 @@ export const TextField = (props: any) => {
     return (
         <div>
             <label htmlFor={field.name}>{props.label}</label>
-            <input type="text" {...field} {...props}/>
-            <ErrorMessage name={field.name} />
-            
+            <input type="text" {...field} {...props} />
+            <ErrorMessage render={msg => <div className='error-message'>{msg}</div>} name={field.name} />
         </div>
     )
 }
