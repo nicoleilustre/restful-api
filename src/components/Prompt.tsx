@@ -1,9 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export const Prompt = () => {
-  return (
-    <div>
-      Please enter your details
-    </div>
-  )
-}
+  return <div>Please enter your details</div>;
+};
