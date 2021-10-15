@@ -1,29 +1,23 @@
-import React from 'react'
+import React from "react";
+import { PersonInfoInterface } from "../App";
 
-interface PersonInfoInterface {
-  personInfo: {
-    name: {
-      first: string,
-      last: string
-    },
-    dob: { age: number },
-    gender: string,
-    picture: { large: string }
-  }
+interface PersonInfoProps {
+  personInfo: PersonInfoInterface;
 }
 
-
-export const PersonInfo = (props: PersonInfoInterface) => {
+export const PersonInfo = ({ personInfo }: PersonInfoProps) => {
   return (
     <div>
-      {props.personInfo.picture &&
-        <img src={props.personInfo.picture.large} alt={props.personInfo.name.first} />}
-      {props.personInfo.name &&
-        <div>Name: {props.personInfo.name.first} {props.personInfo.name.last}</div>}
-      {props.personInfo.dob.age &&
-        <div>Age: {props.personInfo.dob.age}</div>}
-      {props.personInfo.gender &&
-        <div>Gender: {props.personInfo.gender}</div>}
+      {personInfo.picture?.large && personInfo.name?.first && (
+        <img src={personInfo.picture.large} alt={personInfo.name.first} />
+      )}
+      {personInfo.name && (
+        <div>
+          Name: {personInfo.name.first} {personInfo.name.last}
+        </div>
+      )}
+      {personInfo.dob?.age && <div>Age: {personInfo.dob.age}</div>}
+      {personInfo.gender && <div>Gender: {personInfo.gender}</div>}
     </div>
-  )
-}
+  );
+};

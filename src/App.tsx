@@ -6,7 +6,7 @@ import { Loading } from './components/Loading';
 import { PersonInfo } from './components/PersonInfo'
 import { UserInputForm } from './components/UserInputForm'
 
-interface PersonInfoInterface {
+export interface PersonInfoInterface {
   name: {
     first: string,
     last: string
@@ -29,18 +29,16 @@ function App() {
   const [userInfo, setUserInfo] = useState({} as UserInfoInterface)
 
   return (
-    <div>
+    <>
       <Title />
       <UserInputForm setUserInfo={setUserInfo} setPersonInfo={setPersonInfo} />
       {!userInfo.firstName && <Prompt />}
       {!personInfo.name && userInfo.firstName && <Loading />}
       {personInfo.name &&
-        <div>
-          <PersonInfo
-            personInfo={personInfo}
-          />
-        </div>}
-    </div>
+        <PersonInfo
+          personInfo={personInfo}
+        />}
+    </>
   );
 }
 
